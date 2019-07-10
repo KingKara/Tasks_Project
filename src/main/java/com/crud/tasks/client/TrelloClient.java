@@ -42,10 +42,6 @@ public class TrelloClient {
             LOGGER.error(e.getMessage(), e);
             return new ArrayList<>();
         }
-//        if (boardsResponse!= null) {
-//            return Arrays.asList(boardsResponse);
-//        }
-//        return new ArrayList<>();
     }
 
     public CreatedTrelloCard createNewCard(TrelloCardDto trelloCardDto) {
