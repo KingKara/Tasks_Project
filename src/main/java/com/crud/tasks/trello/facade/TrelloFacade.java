@@ -33,9 +33,4 @@ public class TrelloFacade {
         trelloValidator.validateCard(trelloCard);
         return trelloService.createTrelloCard(trelloMapper.mapToCardDto(trelloCard));
     }
-
-//    public List<TrelloBoard> fetchTrelloBoards() {
-//        return  trelloMapper.mapToBoard(trelloService.fetchTrelloBoards());
-//
-//    }
 }
