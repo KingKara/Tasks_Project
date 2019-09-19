@@ -12,6 +12,11 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity(name = "tasks")
 public class Task {
+    public Task(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
