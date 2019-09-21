@@ -103,6 +103,7 @@ public class TaskControllerTest {
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
                 .andExpect(status().isOk());
+        verify(dbService).saveTask(taskMapper.mapTotask(ArgumentMatchers.any(TaskDto.class)));
     }
 
     @Test
@@ -127,10 +128,9 @@ public class TaskControllerTest {
     @Test
     public void shouldDeleteTask() throws Exception {
         //Given
-        TaskDto task = new TaskDto(123L,"Test title", "Test content");
+        TaskDto task = new TaskDto(123L, "Test title", "Test content");
         Task taskFromGet = new Task(123L, "Test title", "Test content");
         Long id = task.getId();
-        System.out.println(id);
 
         when(dbService.getTask(id)).thenReturn(taskFromGet);
         when(dbService.saveTask(taskMapper.mapTotask(ArgumentMatchers.any(TaskDto.class)))).thenReturn(taskFromGet);
@@ -140,6 +140,7 @@ public class TaskControllerTest {
                 .characterEncoding("UTF-8")
                 .param("taskId", id.toString()))
                 .andExpect(status().isOk());
+        verify(dbService).deleteTask(id);
 
     }
 }
