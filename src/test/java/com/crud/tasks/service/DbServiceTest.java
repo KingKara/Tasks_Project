@@ -1,7 +1,10 @@
 package com.crud.tasks.service;
 
+import com.crud.tasks.client.TrelloClient;
 import com.crud.tasks.controller.TaskNotFoundException;
+import com.crud.tasks.domain.CreatedTrelloCardDto;
 import com.crud.tasks.domain.Task;
+import com.crud.tasks.domain.TrelloCardDto;
 import com.crud.tasks.repository.TaskRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -19,6 +24,9 @@ public class DbServiceTest {
 
     @Autowired
     private DbService dbService;
+
+    @Autowired
+    private TrelloService trelloService;
 
     @Test
     public void shouldGetAllTasks() {
@@ -55,5 +63,4 @@ public class DbServiceTest {
         //CleanUp
         dbService.deleteTask(id);
     }
-
 }

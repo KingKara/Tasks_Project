@@ -6,17 +6,26 @@ import com.crud.tasks.domain.CreatedTrelloCardDto;
 import com.crud.tasks.domain.Mail;
 import com.crud.tasks.domain.TrelloBoardDto;
 import com.crud.tasks.domain.TrelloCardDto;
+import com.crud.tasks.trello.config.TrelloConfig;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -29,8 +38,13 @@ public class TrelloServiceTest {
     private TrelloClient trelloClient;
 
     @Mock
-    private AdminConfig config;
+    private RestTemplate restTemplate;
 
+    @Mock
+    private AdminConfig adminConfig;
+
+    @Mock
+    private SimpleEmailService simpleEmailService;
 
     @Test
     public void shouldFetchTrelloBoards() {
@@ -53,20 +67,29 @@ public class TrelloServiceTest {
     }
 
     @Test
-    public void shouldCreateCard() {
+    public void shouldCreateCard(){
         //Given
-        TrelloCardDto trelloCardDto = new TrelloCardDto("testName", "testDesc", "testPos", "testId");
+        TrelloCardDto trelloCardDto = new TrelloCardDto(
+                "Test card",
+                "Test Description",
+                "Test pos",
+                "test_id"
+        );
 
-        CreatedTrelloCardDto createdTrelloCardDto = new CreatedTrelloCardDto("1",
-                "testName",
-                "http://test.com");
+        CreatedTrelloCardDto createdTrelloCardDto = new CreatedTrelloCardDto(
+                "1",
+                "Test card",
+                "http://test.com"
+        );
 
+        when(trelloService.createTrelloCard(trelloCardDto)).thenReturn(createdTrelloCardDto);
         when(trelloClient.createNewCard(trelloCardDto)).thenReturn(createdTrelloCardDto);
-        when(config.getAdminMail()).thenReturn("kinga.kara.93@gmail.com");
+        when(adminConfig.getAdminMail()).thenReturn("${admin.mail}");
+
         //When
         CreatedTrelloCardDto createdCard = trelloService.createTrelloCard(trelloCardDto);
 
         //Then
-        assertEquals("testName", createdCard.getName());
+        assertEquals("Test card", createdCard.getName());
     }
 }
