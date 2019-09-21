@@ -55,7 +55,7 @@ public class DbServiceTest {
         long id = task.getId();
 
         //When
-        Task taskFromGetMethod = dbService.getTask(id).orElseThrow(TaskNotFoundException::new);
+        Task taskFromGetMethod = dbService.getTask(id);
 
         //Then
         assertEquals("test", taskFromGetMethod.getTitle());

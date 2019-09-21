@@ -6,23 +6,16 @@ import com.crud.tasks.domain.CreatedTrelloCardDto;
 import com.crud.tasks.domain.Mail;
 import com.crud.tasks.domain.TrelloBoardDto;
 import com.crud.tasks.domain.TrelloCardDto;
-import com.crud.tasks.trello.config.TrelloConfig;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.doNothing;
@@ -36,9 +29,6 @@ public class TrelloServiceTest {
 
     @Mock
     private TrelloClient trelloClient;
-
-    @Mock
-    private RestTemplate restTemplate;
 
     @Mock
     private AdminConfig adminConfig;
@@ -85,6 +75,7 @@ public class TrelloServiceTest {
         when(trelloService.createTrelloCard(trelloCardDto)).thenReturn(createdTrelloCardDto);
         when(trelloClient.createNewCard(trelloCardDto)).thenReturn(createdTrelloCardDto);
         when(adminConfig.getAdminMail()).thenReturn("${admin.mail}");
+//        doNothing().when(simpleEmailService).send(new Mail());
 
         //When
         CreatedTrelloCardDto createdCard = trelloService.createTrelloCard(trelloCardDto);
