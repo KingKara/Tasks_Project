@@ -34,5 +34,6 @@ dependencies {
 	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
 	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.1.6.RELEASE'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.1.8.RELEASE'
 
 }
