@@ -79,7 +79,7 @@ public class TaskControllerTest {
         when(taskMapper.mapToTaskDto(dbService.getTask(id))).thenReturn(task);
 
         //When & Then
-        mockMvc.perform(get("/v1/tasks/"+id).contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(get("/v1/tasks/123").contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .param("taskId", id.toString()))
                 .andExpect(status().isOk())
@@ -136,7 +136,7 @@ public class TaskControllerTest {
         when(dbService.saveTask(taskMapper.mapTotask(ArgumentMatchers.any(TaskDto.class)))).thenReturn(taskFromGet);
 
         //When & Then
-        mockMvc.perform(delete("/v1/tasks/"+id).contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(delete("/v1/tasks/123").contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .param("taskId", id.toString()))
                 .andExpect(status().isOk());
